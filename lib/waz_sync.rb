@@ -21,7 +21,7 @@ class WazSync
     obj = container[filename] rescue nil
     if !obj || (obj.railsetag != Digest::MD5.hexdigest(File.read(file)))
       Rails.logger.info("Create / Updating : #{filename}")
-      content_type = MIME::Types.type_for(file).to_s.blank? ? "text/plain" : MIME::Types.type_for(file).to_s
+      content_type = MIME::Types.type_for(file).to_s.blank? ? "text/plain" : MIME::Types.type_for(file)[0].to_s
       container.store(filename, File.read(file), content_type, options) rescue 'error'   
     end
   end
